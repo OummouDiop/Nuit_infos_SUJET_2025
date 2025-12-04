@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Importations des composants de navigation et de page
+import Navbar from './Acceuil/Navbar'; // ⬅️ NOUVEAU : Importation du Navbar
+import HomePage from './Acceuil/HomePage';
+// import DiagnosticPage from './Diagnostic/DiagnosticPage'; 
+// import ResourcesPage from './Ressources/ResourcesPage'; 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // 1. Enveloppez toute l'application dans le Router
+    <Router>
+      <div className="App">
+        
+        {/* 2. AJOUT DU NAV BAR : Placé ici pour qu'il soit affiché sur toutes les pages */}
+        <Navbar />
+        
+        <main>
+          {/* 3. Définissez les chemins possibles */}
+          <Routes>
+            {/* Page d'Accueil : Path "/" */}
+            <Route path="/" element={<HomePage />} />
+            
+            {/* Exemple de Route pour le Diagnostic NIRD : Path "/diagnostic" */}
+            {/* <Route path="/diagnostic" element={<DiagnosticPage />} /> */}
+            
+            {/* Exemple de Route pour les Ressources NIRD : Path "/ressources" */}
+            {/* <Route path="/ressources" element={<ResourcesPage />} /> */}
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
