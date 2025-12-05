@@ -18,6 +18,7 @@ import RoleplayPage from './pages/RoleplayPage.jsx';
 import HomePage from './Acceuil/HomePage';
 import ResistantDigitalVillageQuiz from './Quiz/ResistantDigitalVillageQuiz.jsx';
 import NirdPage from './Nird/NirdPage';
+import Chatbot from './chatbot/Chatbot.jsx';
 // import DiagnosticPage from './Diagnostic/DiagnosticPage';
 // import ResourcesPage from './Ressources/ResourcesPage';
 
@@ -42,6 +43,7 @@ function App() {
             {/* <Route path="/ressources" element={<ResourcesPage />} /> */}
             
             {/* Route NIRD */}
+            <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/nird" element={<NirdPage />} />
             <Route path="/roleplaypage" element={<RoleplayPage />} />
           </Routes>
