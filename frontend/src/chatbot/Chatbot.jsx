@@ -81,7 +81,7 @@ const Chatbot = ({ isFullPage = false }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/chat/message/', {
+      const response = await fetch('https://nuit-infos-sujet-2025.onrender.com/api/chat/message/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
