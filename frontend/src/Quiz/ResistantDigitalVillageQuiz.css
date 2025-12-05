@@ -1,0 +1,240 @@
+/* --- Layout général --- */
+.quiz-container {
+  min-height: 100vh;
+  background: #f7f7f7;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.quiz-box {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+/* --- Header --- */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  color: #4f46e5;
+  margin-right: 8px;
+}
+
+.question-count {
+  font-size: 18px;
+  color: #555;
+}
+
+/* --- Question --- */
+.quiz-question h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.timer-info {
+  display: flex;
+  align-items: center;
+  color: #777;
+}
+
+.timer-icon {
+  margin-right: 5px;
+}
+
+/* --- Options Grid --- */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media(min-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Cartesian Flip Cards --- */
+
+.card-wrapper {
+  perspective: 1000px;
+  height: 320px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.card-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-front {
+  background: #2563eb;
+  color: white;
+}
+
+.card-front-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-hint {
+  opacity: 0.8;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.icon-pulse {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  animation: pulse 1.3s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1;}
+  50% { transform: scale(1.1); opacity: 0.7;}
+  100% { transform: scale(1); opacity: 1;}
+}
+
+/* --- Verso --- */
+.card-back {
+  background: #f5f5f5;
+  transform: rotateY(180deg);
+  color: #333;
+  text-align: left;
+}
+
+.card-back-text {
+  line-height: 1.5;
+}
+
+/* Statuts réponses */
+.card-correct {
+  background: #d1fae5;
+  border: 2px solid #10b981;
+}
+
+.card-wrong {
+  background: #fee2e2;
+  border: 2px solid #ef4444;
+}
+
+.correct-text {
+  color: #0f5132;
+}
+
+.wrong-text {
+  color: #b91c1c;
+}
+
+/* Emoji feedback */
+.emoji-good {
+  margin-left: 10px;
+  color: #10b981;
+  animation: bounce 1s infinite;
+}
+
+.emoji-bad {
+  margin-left: 10px;
+  color: #ef4444;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+/* --- Navigation --- */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.score-display {
+  font-size: 18px;
+  color: #444;
+}
+
+.btn-next {
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  background: #22c55e;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.btn-disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  margin-right: 6px;
+}
+
+/* --- Écran de fin --- */
+.quiz-end-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+}
+
+.quiz-end-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  border-top: 5px solid #10b981;
+}
+
+.btn-main {
+  margin-top: 20px;
+  background: #2563eb;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+}

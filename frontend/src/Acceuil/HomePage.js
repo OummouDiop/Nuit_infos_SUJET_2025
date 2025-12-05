@@ -347,7 +347,7 @@ const HeroCarousel = ({ images, interval = 3000 }) => {
             l'École peut devenir un <strong>village ingénieux, autonome et créatif</strong>.
           </p>
           <div className="hero-actions">
-            <a href="#diagnostic" className="cta-button primary">
+            <a href="/quiz" className="cta-button primary">
               <Zap size={20} /> Quiz
             </a>
           </div>
@@ -379,9 +379,9 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Accueil', href: '#accueil' },
-    { label: 'jeu de rol', href: '#defi' },
-    { label: 'problem/solution', href: '#diagnostic' },
+    { label: 'Accueil', href: '/' },
+    { label: 'jeu de role', href: '/roleplaypage' },
+    { label: 'problem/solution', href: '/nird' },
     { label: 'chatbot', href: '#piliers' },
   ];
 
