@@ -1,0 +1,148 @@
+/* Page d'accueil NIRD */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.home-content {
+  background: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Header */
+.home-header {
+  margin-bottom: 40px;
+}
+
+.nird-logo {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.home-title {
+  margin: 0;
+}
+
+.nird-acronym {
+  display: block;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2E7D32;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.nird-subtitle {
+  display: block;
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 400;
+}
+
+/* Description */
+.home-description {
+  margin-bottom: 40px;
+}
+
+.home-description p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* Bouton principal */
+.home-action {
+  margin-bottom: 40px;
+}
+
+.chatbot-button {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.chatbot-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
+}
+
+.chatbot-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+.button-text {
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.home-footer {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 20px;
+}
+
+.home-footer p {
+  margin: 0;
+}
+
+.official-link {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.official-link:hover {
+  color: #2E7D32;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-content {
+    padding: 40px 20px;
+  }
+  
+  .nird-acronym {
+    font-size: 2.5rem;
+  }
+  
+  .nird-subtitle {
+    font-size: 1rem;
+  }
+  
+  .chatbot-button {
+    padding: 15px 30px;
+    font-size: 1rem;
+  }
+}

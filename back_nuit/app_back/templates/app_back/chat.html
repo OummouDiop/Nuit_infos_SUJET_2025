@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Gemini</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            background-color: #4285f4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background-color: #4285f4;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message {
+            background-color: #e8e8e8;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .chat-input button {
+            margin-left: 10px;
+            padding: 15px 25px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .chat-input button:hover {
+            background-color: #3367d6;
+        }
+        
+        .chat-input button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🤖 Chatbot Gemini</h1>
+            <p>Posez-moi vos questions, je suis là pour vous aider !</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Bonjour ! Je suis votre assistant IA alimenté par Gemini. Comment puis-je vous aider aujourd'hui ?
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            Le bot est en train de réfléchir...
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Tapez votre message ici..." maxlength="1000">
+            <button onclick="sendMessage()" id="sendButton">Envoyer</button>
+        </div>
+    </div>
+
+    <script>
+        let sessionId = generateSessionId();
+        
+        function generateSessionId() {
+            return 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        }
+        
+        function addMessage(content, isUser = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = content;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            const sendButton = document.getElementById('sendButton');
+            const messageInput = document.getElementById('messageInput');
+            
+            if (show) {
+                loading.style.display = 'block';
+                sendButton.disabled = true;
+                messageInput.disabled = true;
+            } else {
+                loading.style.display = 'none';
+                sendButton.disabled = false;
+                messageInput.disabled = false;
+            }
+        }
+        
+        async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                return;
+            }
+            
+            // Ajouter le message de l'utilisateur
+            addMessage(message, true);
+            messageInput.value = '';
+            
+            // Montrer le loading
+            showLoading(true);
+            
+            try {
+                const response = await fetch('/api/chat/message/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: sessionId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Ajouter la réponse du bot
+                    addMessage(data.bot_response, false);
+                    sessionId = data.session_id;
+                } else {
+                    addMessage('Désolé, une erreur s\'est produite: ' + (data.error || 'Erreur inconnue'), false);
+                }
+                
+            } catch (error) {
+                addMessage('Erreur de connexion. Veuillez réessayer.', false);
+                console.error('Erreur:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Envoyer le message avec la touche Entrée
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Focus sur l'input au chargement
+        document.getElementById('messageInput').focus();
+    </script>
+</body>
+</html>
