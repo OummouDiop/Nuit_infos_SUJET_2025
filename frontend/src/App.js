@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+import logo from './logo.svg';
+import './App.css';
+import NIRDQuiz from './Quiz/NIRDQuiz';
+function App() {
+  return (
+
+      <NIRDQuiz />
+=======
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -35,6 +44,7 @@ function App() {
         </main>
       </div>
     </Router>
+>>>>>>> 2f9b40d9c5be6dc66187d1716814efc116687add
   );
 }
 
