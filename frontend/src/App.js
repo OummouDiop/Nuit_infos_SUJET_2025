@@ -1,6 +1,19 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+// import './App.css';
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import RoleplayPage from './pages/RoleplayPage.jsx';  
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         {/* <Route path="/role" element={<Roleplay />} /> */}
+//         <Route path="/roleplaypage" element={<RoleplayPage />} />
+//       </Routes>
+>>>>>>> 0c4e2ed581262989ade08183329762ecae140fb9
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import RoleplayPage from './pages/RoleplayPage.jsx';  
 // Composants
 import HomePage from './Acceuil/HomePage';
 import NIRDQuiz from './Quiz/NIRDQuiz';
@@ -29,11 +42,13 @@ function App() {
             
             {/* Route NIRD */}
             <Route path="/nird" element={<NirdPage />} />
+            <Route path="/roleplaypage" element={<RoleplayPage />} />
           </Routes>
         </main>
       </div>
     </Router>
   );
+  
 }
 
 export default App;
