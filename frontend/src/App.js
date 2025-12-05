@@ -1,17 +1,4 @@
-<<<<<<< HEAD
 import React from 'react';
-=======
-// import './App.css';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import RoleplayPage from './pages/RoleplayPage.jsx';  
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         {/* <Route path="/role" element={<Roleplay />} /> */}
-//         <Route path="/roleplaypage" element={<RoleplayPage />} />
-//       </Routes>
->>>>>>> 0c4e2ed581262989ade08183329762ecae140fb9
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RoleplayPage from './pages/RoleplayPage.jsx';  
 // Composants

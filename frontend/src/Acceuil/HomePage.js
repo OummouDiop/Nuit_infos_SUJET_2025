@@ -334,7 +334,7 @@ const HeroCarousel = ({ images, interval = 3000 }) => {
           />
         ))}
         
-        <div className="carousel-content">
+        {/* <div className="carousel-content">
           <div className="hero-badge">
             <Trophy size={16} /> Nuit de l'Info 2025
           </div>
@@ -351,7 +351,7 @@ const HeroCarousel = ({ images, interval = 3000 }) => {
               <Zap size={20} /> Quiz
             </a>
           </div>
-        </div>
+        </div> */}
         
         <button className="carousel-btn prev" onClick={goToPrevSlide}>
           <ChevronLeft size={24} />
@@ -765,10 +765,10 @@ const HomePage = () => {
             <div className="stat-number">80%</div>
             <div className="stat-label">pourraient être reconditionnés</div>
           </div>
-          <div className="stat-card animate-on-scroll" style={{animationDelay: '0.4s'}}>
+          {/* <div className="stat-card animate-on-scroll" style={{animationDelay: '0.4s'}}>
             <div className="stat-number">70%</div>
             <div className="stat-label">d'économie avec le logiciel libre</div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -833,12 +833,12 @@ const HomePage = () => {
             emoji="💻"
             rotationImages={IMAGES.TECHS}
           />
-          <CharacterCard 
+          {/* <CharacterCard 
             name="Le Principal Visionnaire"
             role="Porte la transition NIRD et mobilise les partenaires"
             emoji="👁️"
             rotationImages={IMAGES.TEACHERS}
-          />
+          /> */}
         </div>
       </section>
      
