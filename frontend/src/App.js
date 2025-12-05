@@ -1,40 +1,34 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Importations des composants de navigation et de page
-import Navbar from './Acceuil/Navbar'; // ⬅️ NOUVEAU : Importation du Navbar
+// Composants
 import HomePage from './Acceuil/HomePage';
-import ChatbotPage from './Acceuil/ChatbotPage';
-import NIRDQuiz from './Quiz/NIRDQuiz'; // ⬅️ NOUVEAU : Importation du Quiz NIRD
-// import DiagnosticPage from './Diagnostic/DiagnosticPage'; 
-// import ResourcesPage from './Ressources/ResourcesPage'; 
+import NIRDQuiz from './Quiz/NIRDQuiz';
+import NirdPage from './Nird/NirdPage';
+// import DiagnosticPage from './Diagnostic/DiagnosticPage';
+// import ResourcesPage from './Ressources/ResourcesPage';
 
 function App() {
   return (
-    // 1. Enveloppez toute l'application dans le Router
     <Router>
       <div className="App">
-        
-        {/* 2. AJOUT DU NAV BAR : Placé ici pour qu'il soit affiché sur toutes les pages */}
-        <Navbar />
-        
+
+        {/* NAVBAR visible sur toutes les pages */}
+
         <main>
-          {/* 3. Définissez les chemins possibles */}
           <Routes>
-            {/* Page d'Accueil : Path "/" */}
+            {/* Page d'accueil */}
             <Route path="/" element={<HomePage />} />
-            
-            {/* Page Chatbot NIRD : Path "/chatbot" */}
-            <Route path="/chatbot" element={<ChatbotPage />} />
-            
-            {/* Page Quiz NIRD : Path "/quiz" */}
+
+            {/* Quiz NIRD */}
             <Route path="/quiz" element={<NIRDQuiz />} />
-            
-            {/* Exemple de Route pour le Diagnostic NIRD : Path "/diagnostic" */}
+
+            {/* Autres pages si besoin */}
             {/* <Route path="/diagnostic" element={<DiagnosticPage />} /> */}
-            
-            {/* Exemple de Route pour les Ressources NIRD : Path "/ressources" */}
             {/* <Route path="/ressources" element={<ResourcesPage />} /> */}
+            
+            {/* Route NIRD */}
+            <Route path="/nird" element={<NirdPage />} />
           </Routes>
         </main>
       </div>

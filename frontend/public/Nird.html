@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C'est quoi NIRD ? - Village Numérique Résistant</title>
+    <meta name="description" content="Découvrez NIRD : Numérique Inclusif, Responsable et Durable. Une approche pour résister aux Big Tech et reprendre le contrôle de notre numérique éducatif.">
+    <meta name="keywords" content="NIRD, numérique responsable, Big Tech, logiciels libres, éducation, Linux">
+
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js"></script>
+
+    <style type="text/tailwindcss">
+    @layer theme {
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #ec4899;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --bg-gradient-start: #faf5ff;
+            --bg-gradient-end: #fef3c7;
+        }
+    }
+
+    @layer base {
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            line-height: 1.2;
+        }
+    }
+
+    @layer utilities {
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.7); }
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel" src="../src/Nird/components/Header.js"></script>
+    <script type="text/babel" src="../src/Nird/components/ProblemCard.js"></script>
+    <script type="text/babel" src="../src/Nird/components/ObjectiveCard.js"></script>
+    <script type="text/babel" src="../src/Nird/components/SolutionCard.js"></script>
+    <script type="text/babel" src="../src/Nird/NirdPage.js"></script>
+    <script type="text/babel" src="../src/Nird/Nird.jsx"></script>
+    <script type="text/babel" src="../src/App.js"></script>
+    <script type="text/babel" src="../src/index.js"></script>
+</body>
+</html>
