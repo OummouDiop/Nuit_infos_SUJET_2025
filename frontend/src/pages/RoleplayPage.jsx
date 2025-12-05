@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Shield, Menu, X } from 'lucide-react';
 import "./roleplay.css";
 
 export default function RoleplayPage() {
@@ -6,6 +7,14 @@ export default function RoleplayPage() {
   const [isFinished, setIsFinished] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'jeu de rol', href: '/roleplaypage' },
+    { label: 'problem/solution', href: '/nird' },
+    { label: 'chatbot', href: '#piliers' },
+  ];
 
   const questions = [
     {
@@ -179,17 +188,65 @@ export default function RoleplayPage() {
   // Page de fin
   if (isFinished) {
     return (
-      <div className="roleplay-container">
-        <div className="finish-screen">
-          <h1 className="finish-title">🎉 Félicitations !</h1>
-          <p className="finish-text">Tu as terminé toutes les questions NIRD !</p>
-          <p className="finish-subtitle">Tu es maintenant sensibilisé au Numérique Inclusif, Responsable et Durable</p>
-          <button 
-            className="restart-btn"
-            onClick={restartQuiz}
-          >
-            🔄 Recommencer
-          </button>
+      <div>
+        <nav className="navbar">
+          <div className="nav-container">
+            <div className="nav-logo">
+              <div className="logo-icon-container">
+                <Shield size={24} />
+              </div>
+              <div className="logo-text-container">
+                <span className="logo-text">NIRD</span>
+                <span className="logo-subtitle">Village Numérique Résistant</span>
+              </div>
+            </div>
+
+            <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+              {navItems.map((item) => (
+                <li key={item.label} className="nav-item">
+                  <a href={item.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {isMenuOpen && (
+            <div className="mobile-menu">
+              <ul className="mobile-nav-menu">
+                {navItems.map((item) => (
+                  <li key={item.label} className="mobile-nav-item">
+                    <a 
+                      href={item.href} 
+                      className="mobile-nav-link"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </nav>
+        
+        <div className="roleplay-container">
+          <div className="finish-screen">
+            <h1 className="finish-title">🎉 Félicitations !</h1>
+            <p className="finish-text">Tu as terminé toutes les questions NIRD !</p>
+            <p className="finish-subtitle">Tu es maintenant sensibilisé au Numérique Inclusif, Responsable et Durable</p>
+            <button 
+              className="restart-btn"
+              onClick={restartQuiz}
+            >
+              🔄 Recommencer
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -203,7 +260,54 @@ export default function RoleplayPage() {
     const explanationText = isCorrectAnswer ? question.goodExplanation : question.badExplanation;
 
     return (
-      <div className="roleplay-container">
+      <div>
+        <nav className="navbar">
+          <div className="nav-container">
+            <div className="nav-logo">
+              <div className="logo-icon-container">
+                <Shield size={24} />
+              </div>
+              <div className="logo-text-container">
+                <span className="logo-text">NIRD</span>
+                <span className="logo-subtitle">Village Numérique Résistant</span>
+              </div>
+            </div>
+
+            <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+              {navItems.map((item) => (
+                <li key={item.label} className="nav-item">
+                  <a href={item.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {isMenuOpen && (
+            <div className="mobile-menu">
+              <ul className="mobile-nav-menu">
+                {navItems.map((item) => (
+                  <li key={item.label} className="mobile-nav-item">
+                    <a 
+                      href={item.href} 
+                      className="mobile-nav-link"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </nav>
+        
+        <div className="roleplay-container">
         {/* PERSONNAGE GAUCHE - Étudiant */}
         <div className={`character-block ${isCorrectAnswer ? 'goodStudentImage' : 'badStudentImage'}`}>
           <img 
@@ -236,6 +340,7 @@ export default function RoleplayPage() {
             ➡️ Suivant
           </button>
         </div>
+        </div>
       </div>
     );
   }
@@ -243,7 +348,54 @@ export default function RoleplayPage() {
   const question = questions[currentQuestion];
 
   return (
-    <div className="roleplay-container">
+    <div>
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-logo">
+            <div className="logo-icon-container">
+              <Shield size={24} />
+            </div>
+            <div className="logo-text-container">
+              <span className="logo-text">NIRD</span>
+              <span className="logo-subtitle">Village Numérique Résistant</span>
+            </div>
+          </div>
+
+          <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+            {navItems.map((item) => (
+              <li key={item.label} className="nav-item">
+                <a href={item.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {isMenuOpen && (
+          <div className="mobile-menu">
+            <ul className="mobile-nav-menu">
+              {navItems.map((item) => (
+                <li key={item.label} className="mobile-nav-item">
+                  <a 
+                    href={item.href} 
+                    className="mobile-nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
+      
+      <div className="roleplay-container">
 
       {/* SECTION PERSONNAGE GAUCHE */}
       <div className="character-block1">
@@ -284,6 +436,7 @@ export default function RoleplayPage() {
         </button>
       </div>
 
+      </div>
     </div>
   );
 }

@@ -191,6 +191,154 @@ body {
   transform: scale(1.05);
   box-shadow: 0 10px 35px rgba(40,167,69,0.6);
 }
+
+/* Navbar styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.logo-icon-container {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-size: 1.875rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo-subtitle {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-link {
+  color: #d1d5db;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.menu-toggle {
+  display: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  background: rgba(2, 6, 23, 0.98);
+  backdrop-filter: blur(30px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  z-index: 1000;
+}
+
+.mobile-nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: #d1d5db;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+/* Ajuster le container pour tenir compte de la navbar */
+.roleplay-container {
+  margin-top: 5rem;
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .mobile-menu {
+    display: block;
+  }
+}
 .goodBusinessImage{
   display: flex;
   align-items: center;

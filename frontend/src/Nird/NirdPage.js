@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Shield, Menu, X } from 'lucide-react';
 import './NirdPage.css';
 
 function NirdPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { label: 'Accueil', href: '/' },
+    { label: 'jeu de rol', href: '/roleplaypage' },
+    { label: 'problem/solution', href: '/nird' },
+    { label: 'chatbot', href: '#piliers' },
+  ];
   const problems = [
     { icon: '🗑️', title: 'Obsolescence programmée', description: 'Les équipements deviennent rapidement obsolètes, forçant des achats coûteux' },
     { icon: '⚠️', title: 'Fin du support Windows 10', description: 'Des milliers d\'ordinateurs deviennent inutilisables sans mise à jour payante' },
@@ -37,6 +46,52 @@ function NirdPage() {
 
   return (
     <div className="nird-page">
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-logo">
+            <div className="logo-icon-container">
+              <Shield size={24} />
+            </div>
+            <div className="logo-text-container">
+              <span className="logo-text">NIRD</span>
+              <span className="logo-subtitle">Village Numérique Résistant</span>
+            </div>
+          </div>
+
+          <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+            {navItems.map((item) => (
+              <li key={item.label} className="nav-item">
+                <a href={item.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {isMenuOpen && (
+          <div className="mobile-menu">
+            <ul className="mobile-nav-menu">
+              {navItems.map((item) => (
+                <li key={item.label} className="mobile-nav-item">
+                  <a 
+                    href={item.href} 
+                    className="mobile-nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
+
       {/* Header */}
       <header className="header-blue">
         <motion.div
