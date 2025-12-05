@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Composants
-import Navbar from './Acceuil/Navbar';
 import HomePage from './Acceuil/HomePage';
 import NIRDQuiz from './Quiz/NIRDQuiz';
 import NirdPage from './Nird/NirdPage';
@@ -15,7 +14,6 @@ function App() {
       <div className="App">
 
         {/* NAVBAR visible sur toutes les pages */}
-        <Navbar />
 
         <main>
           <Routes>
