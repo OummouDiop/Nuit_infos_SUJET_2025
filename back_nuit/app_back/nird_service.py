@@ -6,26 +6,37 @@ import google.generativeai as genai
 import os
 from django.conf import settings
 import random
+from dotenv import load_dotenv
+from pathlib import Path
 
 
 class GeminiNIRDService:
     """Service utilisant l'API Gemini pour répondre aux questions sur les démarches NIRD"""
     
     def __init__(self):
-        # Configuration de l'API Gemini
-        self.api_key = "AIzaSyBEg-Vr7VqOqdm6LaoV_Q3XZZYWaVBSnmc"
-        genai.configure(api_key=self.api_key)
+        # Charger explicitement le fichier .env
+        current_dir = Path(__file__).resolve().parent.parent
+        env_path = current_dir / '.env'
+        load_dotenv(env_path)
         
-        # Modèle à utiliser (essayer plusieurs modèles pour éviter les quotas)
+        # Configuration de l'API Gemini
+        self.api_key = os.getenv('GEMINI_API_KEY')
+        print(f"🔍 Clé API chargée: {self.api_key[:20] + '...' if self.api_key else 'Non trouvée'}")
+        
+        if self.api_key:
+            genai.configure(api_key=self.api_key)
+            print("✅ API Gemini configurée")
+        else:
+            print("⚠️ GEMINI_API_KEY non configurée dans l'environnement")
+        
+        # Modèle à utiliser (modèles disponibles en décembre 2024)
         self.available_models = [
             'gemini-2.5-flash',
-            'gemini-2.0-flash-exp',
+            'gemini-1.5-flash-latest',
             'gemini-1.5-flash',
-            'gemini-1.5-pro', 
-            'gemini-pro',
-            'models/gemini-pro',
-            'gemini-1.5-flash-001',
-            'gemini-1.5-pro-001'
+            'gemini-1.5-pro-latest',
+            'gemini-1.5-pro',
+            'gemini-pro'
         ]
         self.current_model = None
         self.current_model_name = None
@@ -85,13 +96,18 @@ class GeminiNIRDService:
         Génère une réponse à une question sur les démarches NIRD via Gemini UNIQUEMENT
         """
         try:
+            # Vérifier si la clé API est configurée
+            if not self.api_key:
+                print("❌ Clé API Gemini non configurée")
+                return self._get_api_key_error_response(question)
+            
             # Vérifier et initialiser le modèle si nécessaire
             if not self.current_model:
                 self._initialize_model()
             
             if not self.current_model:
                 print("⚠️ Aucun modèle Gemini disponible, utilisation du fallback")
-                raise Exception("Quota exceeded - using fallback")
+                return self._get_intelligent_fallback_response(question)
             
             # Construction du prompt complet
             full_prompt = f"{self.system_prompt}\n\nQuestion de l'utilisateur : {question}\n\nRéponse détaillée mais concise (100-150 mots) :"
@@ -123,20 +139,15 @@ class GeminiNIRDService:
                 
         except Exception as e:
             print(f"❌ Erreur Gemini API: {e}")
-            # Même en cas d'erreur, fournir des sources fiables
-            sources = self._get_reliable_sources(question)
+            error_msg = str(e)
             
-            return {
-                'response': f"❌ **Erreur Gemini API**\n\n{str(e)}\n\n🔧 **Solutions :**\n• Vérifiez votre quota : https://ai.dev/usage\n• Attendez la réinitialisation du quota\n• Configurez un plan payant",
-                'status': 'error',
-                'source': 'Gemini AI (Error)',
-                'sources': sources,  # Toujours fournir des sources
-                'metadata': {
-                    'model': 'gemini-2.0-flash-exp',
-                    'response_type': 'error',
-                    'error': str(e)
-                }
-            }
+            # Gérer différents types d'erreurs
+            if "403" in error_msg and "leaked" in error_msg.lower():
+                return self._get_leaked_key_error_response(question)
+            elif "429" in error_msg:
+                return self._get_quota_error_response(question)
+            else:
+                return self._get_generic_error_response(question, e)
     
     def _get_reliable_sources(self, question):
         """Retourne 2 sources aléatoires parmi 20 sites officiels pour les démarches NIRD"""
@@ -346,12 +357,95 @@ class GeminiNIRDService:
             'metadata': {'response_type': 'general_fallback'}
         }
     
+    def _get_api_key_error_response(self, question):
+        """Réponse quand la clé API n'est pas configurée"""
+        sources = self._get_reliable_sources(question)
+        return {
+            'response': """🔑 **Clé API Gemini non configurée**
+
+Pour utiliser l'IA, configurez votre clé API Gemini :
+• Créez une clé sur : https://makersuite.google.com/app/apikey
+• Ajoutez `GEMINI_API_KEY=votre_clé` dans vos variables d'environnement
+
+🌱 **En attendant, consultez les ressources NIRD :**
+• Site officiel : https://nird.forge.apps.education.fr/
+• Documentation complète et guides pratiques disponibles""",
+            'status': 'api_key_missing',
+            'source': 'Configuration',
+            'sources': sources,
+            'metadata': {'response_type': 'api_key_error'}
+        }
+    
+    def _get_leaked_key_error_response(self, question):
+        """Réponse quand la clé API est signalée comme divulguée"""
+        sources = self._get_reliable_sources(question)
+        return {
+            'response': """🚨 **Clé API Gemini compromise**
+
+Votre clé API a été signalée comme divulguée et désactivée pour sécurité.
+
+**Actions immédiates :**
+• Générez une NOUVELLE clé : https://makersuite.google.com/app/apikey
+• Supprimez l'ancienne clé de votre compte Google AI
+• Configurez `GEMINI_API_KEY=nouvelle_clé` dans vos variables d'environnement
+• Ne jamais exposer de clés API dans le code source
+
+🌱 **En attendant, consultez : https://nird.forge.apps.education.fr/**""",
+            'status': 'api_key_leaked',
+            'source': 'Security',
+            'sources': sources,
+            'metadata': {'response_type': 'leaked_key_error'}
+        }
+    
+    def _get_quota_error_response(self, question):
+        """Réponse quand le quota est dépassé"""
+        sources = self._get_reliable_sources(question)
+        return {
+            'response': """⏳ **Quota Gemini dépassé**
+
+Le quota gratuit de Gemini est atteint.
+
+**Solutions :**
+• Attendez la réinitialisation (généralement 24h)
+• Passez à un plan payant Google AI Studio
+• Vérifiez votre usage : https://ai.google.dev/pricing
+
+🌱 **Ressources NIRD disponibles : https://nird.forge.apps.education.fr/**""",
+            'status': 'quota_exceeded',
+            'source': 'Quota',
+            'sources': sources,
+            'metadata': {'response_type': 'quota_error'}
+        }
+    
+    def _get_generic_error_response(self, question, error):
+        """Réponse pour les autres erreurs"""
+        sources = self._get_reliable_sources(question)
+        return {
+            'response': f"""❌ **Erreur API Gemini**
+
+{str(error)}
+
+🔧 **Solutions :**
+• Vérifiez votre connexion internet
+• Réessayez dans quelques minutes
+• Consultez le statut : https://status.cloud.google.com/
+
+🌱 **Ressources NIRD : https://nird.forge.apps.education.fr/**""",
+            'status': 'error',
+            'source': 'Gemini AI (Error)',
+            'sources': sources,
+            'metadata': {
+                'response_type': 'generic_error',
+                'error': str(error)
+            }
+        }
+
     def _get_fallback_response(self):
         """Réponse de secours basique en cas d'erreur technique"""
         return {
-            'response': """🤖 **Service IA temporairement indisponible** (quota Gemini dépassé)
+            'response': """🤖 **Service IA temporairement indisponible**
 
-🌱 **NIRD - En attendant, consultez :**
+🌱 **NIRD - Consultez directement :**
 • Site officiel : https://nird.forge.apps.education.fr/
 • ADEME : www.ademe.fr | RGAA : www.numerique.gouv.fr/publications/rgaa-accessibilite/
 • GreenIT : www.greenit.fr | INR : www.inr-ngo.org

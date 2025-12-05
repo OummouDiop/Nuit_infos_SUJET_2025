@@ -1,3 +1,32 @@
+# Framework web Django
 Django>=5.1.3
+
+# Intelligence artificielle - API Gemini de Google
 google-generativeai>=0.3.2
+
+# Serveur WSGI pour déploiement en production
 gunicorn>=20.1.0
+
+# Gestion des variables d'environnement (.env)
+python-dotenv>=0.19.0
+
+# Support CORS pour permettre les requêtes du frontend React
+django-cors-headers>=4.3.1
+
+# Parser JSON pour les requêtes API
+# (inclus dans Python standard library - json)
+
+# UUID pour identifiants uniques de session
+# (inclus dans Python standard library - uuid)
+
+# Gestion des chemins de fichiers
+# (inclus dans Python standard library - pathlib)
+
+# Variables d'environnement système
+# (inclus dans Python standard library - os)
+
+# Nombres aléatoires pour sélection de sources
+# (inclus dans Python standard library - random)
+
+# Gestion du temps pour les délais d'attente API
+# (inclus dans Python standard library - time)

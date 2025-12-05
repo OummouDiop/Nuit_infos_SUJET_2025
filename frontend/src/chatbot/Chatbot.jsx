@@ -28,7 +28,7 @@ const Chatbot = ({ isFullPage = false }) => {
     {
       id: 1,
       type: 'bot',
-      content: 'Bonjour ! Je suis votre assistant **NIRD** (Numérique Inclusif, Responsable et Durable). Comment puis-je vous aider aujourd\'hui ?',
+      content: '🌱 **Bonjour !** Je suis votre assistant **NIRD** (Numérique Inclusif, Responsable et Durable).\n\n🎯 **Je peux vous aider sur :**\n• **Éco-conception** - Développement éco-responsable\n• **Accessibilité** - Conformité RGAA/WCAG\n• **Sobriété** numérique et empreinte carbone\n• **Éthique** des données et RGPD\n• **Inclusion** numérique\n\n💬 Posez-moi vos questions !',
       timestamp: new Date().toISOString()
     }
   ]);

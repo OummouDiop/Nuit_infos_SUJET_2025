@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import { Shield, Zap, Leaf, Menu, X, Users, Trophy, Star, CheckCircle, Play, Award, MapPin, Heart, Globe, Download, ChevronRight, ArrowRight, ChevronLeft, ChevronRight as ChevronRightIcon } from 'lucide-react';
 
@@ -382,7 +383,7 @@ const Navigation = () => {
     { label: 'Accueil', href: '/' },
     { label: 'jeu de role', href: '/roleplaypage' },
     { label: 'problem/solution', href: '/nird' },
-    { label: 'chatbot', href: '#piliers' },
+    { label: 'chatbot', href: '/chatbot' },
   ];
 
   return (
@@ -690,6 +691,8 @@ const TestimonialCarousel = () => {
 };
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   // Hook pour les animations au scroll
   useEffect(() => {
     const observerOptions = {
