@@ -1,18 +1,8 @@
-// import './App.css';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import RoleplayPage from './pages/RoleplayPage.jsx';  
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         {/* <Route path="/role" element={<Roleplay />} /> */}
-//         <Route path="/roleplaypage" element={<RoleplayPage />} />
-//       </Routes>
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RoleplayPage from './pages/RoleplayPage.jsx';  
 // Composants
 import HomePage from './Acceuil/HomePage';
-import NIRDQuiz from './Quiz/NIRDQuiz';
+import ResistantDigitalVillageQuiz from './Quiz/ResistantDigitalVillageQuiz.jsx';
 import NirdPage from './Nird/NirdPage';
 // import DiagnosticPage from './Diagnostic/DiagnosticPage';
 // import ResourcesPage from './Ressources/ResourcesPage';
@@ -30,7 +20,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
 
             {/* Quiz NIRD */}
-            <Route path="/quiz" element={<NIRDQuiz />} />
+            
+            <Route path="/quiz" element={<ResistantDigitalVillageQuiz />} />
 
             {/* Autres pages si besoin */}
             {/* <Route path="/diagnostic" element={<DiagnosticPage />} /> */}
