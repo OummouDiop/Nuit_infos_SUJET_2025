@@ -1,38 +1,286 @@
-.App {
-  text-align: center;
+/* ======================== */
+/* 0. Variables et Reset */
+/* ======================== */
+:root {
+    --color-nird-green: #047857; /* Vert foncé NIRD */
+    --color-resistance-red: #dc2626; /* Rouge Résistance */
+    --color-background-light: #f9fafb;
+    --color-text-dark: #1f2937;
+    --max-width: 1280px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-background-light);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app-container {
+    min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+/* Utilitaires pour centrage et max-width */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ======================== */
+/* 1. Navbar */
+/* ======================== */
+.navbar-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px; /* h-16 */
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-nird-green);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-logo:hover {
+    color: #065f46;
+}
+
+.navbar-links {
+    display: none; /* Masqué par défaut pour mobile */
+}
+
+.navbar-links a {
+    color: #4b5563;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: var(--color-nird-green);
+}
+
+.navbar-cta {
+    background-color: var(--color-resistance-red);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 9999px; /* Forme de pillule */
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-cta:hover {
+    background-color: #b91c1c;
+}
+
+/* Media Query pour la navigation desktop */
+@media (min-width: 768px) {
+    .navbar-links {
+        display: flex;
+    }
+}
+
+
+/* ======================== */
+/* 2. Hero Section */
+/* ======================== */
+.hero-section {
+    padding: 5rem 0; /* py-20 */
+    background-color: #ecfdf5; /* Vert très clair */
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3rem; /* text-4xl sm:text-5xl lg:text-6xl */
+    font-weight: 800; /* font-extrabold */
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.hero-section h1 span {
+    display: block;
+    color: var(--color-resistance-red);
+}
+
+.hero-section p {
+    margin-top: 1.5rem;
+    font-size: 1.25rem; /* text-xl */
+    color: #4b5563;
+    max-width: 48rem; /* max-w-3xl */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta-container {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-cta-button {
+    padding: 12px 32px; /* px-8 py-3 */
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    color: white;
+    background-color: var(--color-nird-green);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.hero-cta-button:hover {
+    background-color: #065f46;
+    transform: scale(1.05);
+}
+
+.hero-image-placeholder {
+    margin-top: 3rem;
+    min-height: 200px;
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-style: italic;
+}
+
+
+/* ======================== */
+/* 3. Piliers Section */
+/* ======================== */
+.piliers-section {
+    padding: 5rem 0;
+    background-color: #fff;
+}
+
+.piliers-section h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--color-text-dark);
+}
+
+.piliers-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Une colonne sur mobile */
+    gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .piliers-grid {
+        grid-template-columns: repeat(3, 1fr); /* Trois colonnes sur desktop */
+    }
+}
+
+.pilier-card {
+    padding: 1.5rem;
+    border-left-width: 4px; /* border-l-4 */
+    border-left-style: solid;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pilier-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.pilier-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.pilier-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.pilier-card p {
+    color: #4b5563;
+    font-size: 1rem;
+}
+
+/* Couleurs spécifiques des cartes */
+.pilier-inclusif {
+    border-left-color: #3b82f6; /* Bleu */
+    background-color: #eff6ff; /* Bleu clair */
+}
+.pilier-responsable {
+    border-left-color: #10b981; /* Vert */
+    background-color: #ecfdf5; /* Vert clair */
+}
+.pilier-durable {
+    border-left-color: #f59e0b; /* Jaune/Orange */
+    background-color: #fffbeb; /* Jaune clair */
+}
+
+
+/* ======================== */
+/* 4. Footer & Parcours (Styles de base) */
+/* ======================== */
+.footer {
+    background-color: #1f2937;
+    color: white;
+    padding: 2rem 0;
+}
+
+.footer-text {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 0.875rem;
+}
+
+.footer-links a:hover {
+    color: var(--color-nird-green);
+}
+
+.parcours-section {
+    padding: 5rem 0;
+    background-color: #f3f4f6; /* bg-gray-100 */
+    text-align: center;
+}
+
+/* Ajoutez d'autres styles pour le ParcoursNIRD (quiz) selon vos besoins */
