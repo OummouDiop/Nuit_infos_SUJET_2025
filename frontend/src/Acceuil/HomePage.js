@@ -690,19 +690,62 @@ const TestimonialCarousel = () => {
 };
 
 const HomePage = () => {
+  // Hook pour les animations au scroll
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, observerOptions);
+
+    // Observer tous les éléments avec la classe animate-on-scroll
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach(el => observer.observe(el));
+
+    return () => {
+      animateElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
+  // Hook pour l'interaction mobile améliorée
+  useEffect(() => {
+    // Désactiver le zoom sur double-tap sur mobile
+    let lastTouchEnd = 0;
+    const preventZoom = (e) => {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    };
+    document.addEventListener('touchend', preventZoom, false);
+
+    return () => {
+      document.removeEventListener('touchend', preventZoom, false);
+    };
+  }, []);
+
   return (
     <div className="homepage">
       {/* Navigation */}
       <Navigation />
 
       {/* 1. HERO SECTION avec carrousel */}
-      <section id="accueil">
+      <section id="accueil" className="hero-section">
         <HeroCarousel images={IMAGES.HERO_CAROUSEL} interval={3000} />
       </section>
 
       {/* 2. SECTION DÉFI */}
-      <section className="challenge-section" id="defi">
-        <div className="section-header">
+      <section className="challenge-section animate-on-scroll" id="defi">
+        <div className="section-header animate-on-scroll">
           <h2 className="section-title">Le Défi : Windows 10 n'est plus supporté</h2>
           <p className="section-subtitle">
             Des milliers d'ordinateurs scolaires menacés d'obsolescence alors qu'ils fonctionnent encore
@@ -710,19 +753,19 @@ const HomePage = () => {
         </div>
         
         <div className="stats-grid">
-          <div className="stat-card">
+          <div className="stat-card animate-on-scroll" style={{animationDelay: '0.1s'}}>
             <div className="stat-number">60%</div>
             <div className="stat-label">des établissements dépendent de Windows</div>
           </div>
-          <div className="stat-card">
+          <div className="stat-card animate-on-scroll" style={{animationDelay: '0.2s'}}>
             <div className="stat-number">2.5M</div>
             <div className="stat-label">ordinateurs scolaires en France</div>
           </div>
-          <div className="stat-card">
+          <div className="stat-card animate-on-scroll" style={{animationDelay: '0.3s'}}>
             <div className="stat-number">80%</div>
             <div className="stat-label">pourraient être reconditionnés</div>
           </div>
-          <div className="stat-card">
+          <div className="stat-card animate-on-scroll" style={{animationDelay: '0.4s'}}>
             <div className="stat-number">70%</div>
             <div className="stat-label">d'économie avec le logiciel libre</div>
           </div>
@@ -731,8 +774,8 @@ const HomePage = () => {
 
       {/* 3. DIAGNOSTIC INTERACTIF */}
       {/* 4. LES 3 PILIERS */}
-      <section className="pillars-section" id="piliers">
-        <div className="section-header">
+      <section className="pillars-section animate-on-scroll" id="piliers">
+        <div className="section-header animate-on-scroll">
           <h2 className="section-title">Les 3 Piliers de la Résistance NIRD</h2>
           <p className="section-subtitle">
             Notre approche holistique pour un numérique éducatif responsable
