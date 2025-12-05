@@ -51,6 +51,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li key={link.name} onClick={() => setIsMenuOpen(false)}>
                 <Link to={link.path} className="nav-item">
+            
                   {link.name}
                 </Link>
               </li>
